@@ -1,0 +1,55 @@
+import nltk
+import random
+import string
+
+# Download NLTK resources
+nltk.download('punkt')
+nltk.download('wordnet')
+
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+
+# Initialize
+lemmatizer = WordNetLemmatizer()
+
+# Sample corpus for chatbot to respond from
+responses = {
+    "greeting": ["Hi!", "Hello!", "Hey there!", "Hi, how can I help you?"],
+    "goodbye": ["Goodbye!", "See you later!", "Bye! Take care."],
+    "thanks": ["You're welcome!", "No problem!", "Glad to help you!"],
+    "name": ["I am CodBot, your AI assistant.", "You can call me CodBot!"],
+    "default": ["Sorry, I didn't understand that. Could you rephrase?"]
+}
+
+# Simple intent detection
+def get_intent(user_input):
+    user_input = user_input.lower()
+    tokens = word_tokenize(user_input)
+    tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in string.punctuation]
+
+    if any(word in tokens for word in ['hi', 'hello', 'hey']):
+        return "greeting"
+    elif any(word in tokens for word in ['bye', 'goodbye', 'see you']):
+        return "goodbye"
+    elif any(word in tokens for word in ['thanks', 'thank you']):
+        return "thanks"
+    elif any(word in tokens for word in ['name', 'who are you']):
+        return "name"
+    else:
+        return "default"
+
+# Main chatbot function
+def chatbot():
+    print("CodBot: Hello! I am an AI chatbot. Type 'exit' to end the chat.")
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == 'exit':
+            print("CodBot: It was nice talking to you. Goodbye!")
+            break
+
+        intent = get_intent(user_input)
+        response = random.choice(responses[intent])
+        print("CodBot:", response)
+
+# Run chatbot
+chatbot()
