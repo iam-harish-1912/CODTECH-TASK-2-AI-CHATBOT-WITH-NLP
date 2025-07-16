@@ -1,4 +1,4 @@
-# CODTECH-TASK-2-AI-CHATBOT-WITH-NLP
+# CODTECH-TASK-3-AI-CHATBOT-WITH-NLP
 Name: HARISH.K                                          
 Company: CODTECH IT SOLUTIONS                                                         
 ID: CT06DG2247                                                                 
